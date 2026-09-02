@@ -1,0 +1,324 @@
+:root {
+    --ink: #17211f;
+    --muted: #78817d;
+    --paper: #f6f7f2;
+    --panel: #fff;
+    --accent: #e4794f;
+    --line: #e4e8e2;
+    --green: #a8c7a0;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    color: var(--ink);
+    background: #dfe8dc;
+    font-family: "DM Sans", sans-serif;
+}
+
+.shell {
+    display: grid;
+    grid-template-columns: minmax(360px, .85fr) minmax(520px, 1.15fr);
+    max-width: 1440px;
+    min-height: 100vh;
+    margin: 0 auto;
+    background: var(--paper);
+    box-shadow: 0 0 80px #879a8633;
+}
+
+.brand-panel {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 48px clamp(36px, 6vw, 88px);
+    overflow: hidden;
+    background: #203b36;
+    color: #f4f5eb;
+}
+
+.brand-panel::after {
+    content: "";
+    position: absolute;
+    width: 430px;
+    height: 430px;
+    right: -160px;
+    bottom: -160px;
+    border: 1px solid #d5e2c633;
+    border-radius: 50%;
+    box-shadow: 0 0 0 55px #d5e2c60d, 0 0 0 110px #d5e2c608;
+}
+
+.brand-mark {
+    width: 42px;
+    height: 42px;
+    display: grid;
+    place-items: center;
+    border: 1px solid #d5e2c699;
+    color: var(--green);
+    font-family: "Space Grotesk";
+    font-weight: 700;
+    font-size: 20px;
+}
+
+.eyebrow {
+    margin: 0 0 18px;
+    color: #b5c9b3;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2px;
+}
+
+.accent {
+    color: var(--accent);
+}
+
+h1,
+h2 {
+    margin: 0;
+    font-family: "Space Grotesk", sans-serif;
+    letter-spacing: -.8px;
+}
+
+h1 {
+    max-width: 570px;
+    font-size: clamp(42px, 5vw, 72px);
+    line-height: .98;
+}
+
+h1 em {
+    color: var(--green);
+    font-style: normal;
+}
+
+.brand-copy {
+    max-width: 320px;
+    margin: 28px 0 0;
+    color: #c8d4c4;
+    line-height: 1.65;
+}
+
+.brand-foot {
+    position: relative;
+    z-index: 1;
+    color: #b5c9b3;
+    font-size: 12px;
+}
+
+.status-dot {
+    display: inline-block;
+    width: 7px;
+    height: 7px;
+    margin-right: 8px;
+    border-radius: 50%;
+    background: #9ed096;
+    box-shadow: 0 0 0 4px #9ed09620;
+}
+
+.app-panel {
+    min-height: 100vh;
+    background: var(--panel);
+}
+
+.view {
+    min-height: 100vh;
+    padding: clamp(36px, 7vw, 100px);
+}
+
+.hidden {
+    display: none;
+}
+
+.form-wrap {
+    max-width: 390px;
+    margin: 10vh auto 0;
+}
+
+h2 {
+    font-size: clamp(28px, 3vw, 40px);
+}
+
+.muted {
+    margin: 12px 0 42px;
+    color: var(--muted);
+}
+
+label {
+    display: block;
+    margin: 22px 0 8px;
+    color: #53605b;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+input,
+textarea {
+    width: 100%;
+    border: 1px solid var(--line);
+    border-radius: 2px;
+    outline: none;
+    color: var(--ink);
+    background: #fbfcf8;
+    font: inherit;
+    transition: border-color .2s, box-shadow .2s;
+}
+
+input {
+    padding: 14px 15px;
+}
+
+textarea {
+    resize: none;
+    padding: 15px;
+}
+
+input:focus,
+textarea:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px #e4794f18;
+}
+
+.primary-button {
+    width: 100%;
+    margin-top: 30px;
+    padding: 15px 18px;
+    border: 0;
+    color: white;
+    background: var(--accent);
+    font: 700 13px "DM Sans";
+    cursor: pointer;
+}
+
+.primary-button span {
+    float: right;
+    font-size: 18px;
+    line-height: 12px;
+}
+
+.error {
+    min-height: 18px;
+    margin: 12px 0 0;
+    color: #c34f38;
+    font-size: 12px;
+}
+
+.chat-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding-bottom: 32px;
+    border-bottom: 1px solid var(--line);
+}
+
+.quiet-button {
+    border: 0;
+    color: var(--muted);
+    background: transparent;
+    font: 600 12px "DM Sans";
+    cursor: pointer;
+}
+
+.messages {
+    max-width: 720px;
+    min-height: 52vh;
+    padding: 38px 0;
+}
+
+.message {
+    display: flex;
+    gap: 14px;
+    margin-bottom: 28px;
+    line-height: 1.65;
+}
+
+.message p {
+    margin: 0;
+}
+
+.message-label {
+    margin-bottom: 5px !important;
+    color: var(--accent);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+}
+
+.avatar {
+    flex: 0 0 28px;
+    height: 28px;
+    display: grid;
+    place-items: center;
+    color: #fff;
+    background: var(--ink);
+    font: 700 12px "Space Grotesk";
+}
+
+.composer {
+    max-width: 720px;
+    padding-top: 18px;
+    border-top: 1px solid var(--line);
+}
+
+.composer-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 10px;
+    color: var(--muted);
+    font-size: 11px;
+}
+
+.send-button {
+    width: 34px;
+    height: 34px;
+    border: 0;
+    border-radius: 50%;
+    color: white;
+    background: var(--ink);
+    font-size: 20px;
+    cursor: pointer;
+}
+
+@media (max-width: 760px) {
+    .shell {
+        display: block;
+    }
+
+    .brand-panel {
+        min-height: 310px;
+        padding: 28px;
+    }
+
+    .brand-panel h1 {
+        font-size: 42px;
+    }
+
+    .brand-copy {
+        display: none;
+    }
+
+    .brand-foot {
+        margin-top: 34px;
+    }
+
+    .app-panel,
+    .view {
+        min-height: auto;
+    }
+
+    .view {
+        padding: 38px 24px 48px;
+    }
+
+    .form-wrap {
+        margin: 4vh auto 0;
+    }
+
+    .messages {
+        min-height: 45vh;
+    }
+}
