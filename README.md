@@ -230,6 +230,47 @@ source. Recall@k is the fraction of expected sources found in the top `k`.
 Track these values on a fixed evaluation set whenever documents, chunking,
 embeddings, or retrieval settings change.
 
+### Scope of improvement
+
+Retrieval quality can be improved incrementally and validated against the same
+labeled evaluation set. Possible improvements include:
+
+- **Re-indexing strategy:** Rebuild the Chroma collection after changing source
+	documents, cleaning rules, chunk sizes, overlap, or embedding models. Keep
+	separate collections for experiments so results from different index versions
+	can be compared safely.
+- **Chunking optimization:** Experiment with chunk size and overlap, and add
+	structure-aware splitting for headings, tables, requirements, and numbered
+	procedures instead of relying only on recursive character boundaries.
+- **Embedding evaluation:** Compare embedding models using precision@k,
+	recall@k, and retrieval latency. Use domain-specific or locally hosted
+	embeddings when engineering terminology is not represented well by the
+	default model.
+- **Hybrid search:** Combine semantic vector search with keyword or BM25 search
+	so exact identifiers, revision numbers, material grades, and part numbers are
+	easier to find.
+- **Reranking:** Retrieve a larger candidate set, then apply a cross-encoder or
+	other reranker before selecting the final context. This can improve ordering
+	when several chunks use similar language.
+- **Query processing:** Expand abbreviations, normalize part and document IDs,
+	and use query decomposition for multi-part questions. Query rewriting should
+	preserve important identifiers and technical constraints.
+- **Metadata and filtering:** Add metadata such as document type, revision,
+	product, supplier, and approval status, then apply metadata filters before or
+	during retrieval.
+- **Context selection:** Deduplicate overlapping chunks, diversify results by
+	source document, and use a relevance threshold so weak matches are excluded
+	from the answer context.
+- **Evaluation and monitoring:** Add labeled cases for exact lookup, comparison,
+	multi-document reasoning, and no-answer questions. Track precision@k,
+	recall@k, answer faithfulness, citation correctness, latency, and index size
+	across every retrieval configuration.
+
+The safest workflow is to create a fresh staging collection, re-index the same
+dataset with one change at a time, run the retrieval evaluator, and promote the
+configuration only when it improves the target metrics without introducing
+unsupported sources or unacceptable latency.
+
 ### Configuration
 
 The application reads settings from `.env`. `OPENAI_API_KEY` is required for
@@ -237,6 +278,14 @@ OpenAI embeddings or answer generation. `HF_EMBEDDING_MODEL` is used by the
 local Hugging Face embedding configuration when selected. Chroma data is
 stored in `CHROMA_PERSIST_DIRECTORY` when that setting is provided; otherwise
 the default directory is `chroma_db`.
+
+`CHUNK_SIZE` controls the maximum number of characters in each chunk and
+`CHUNK_OVERLAP` controls how much neighboring chunks overlap. The defaults are
+`1200` and `200`. Re-index the documents after changing either value:
+
+```powershell
+uv run project index .\src\data --recursive --reset
+```
 
 ### API
 
@@ -258,4 +307,21 @@ Use the returned bearer token for chatbot requests:
 ```powershell
 Invoke-RestMethod http://127.0.0.1:8000/chat -Method Post -Headers @{ Authorization = 'Bearer YOUR_TOKEN' } -ContentType 'application/json' -Body '{"question":"What is the main topic?","k":4}'
 ```
+
+### Production readiness: volume and concurrency testing
+
+Before production deployment, test the system with a representative document
+collection and realistic concurrent users. Measure:
+
+- Indexing time, memory usage, and Chroma database size as document volume grows
+- Retrieval and answer-generation latency at the expected concurrency level
+- Error rates, request timeouts, and OpenAI rate-limit behavior under load
+- CPU and memory usage for the API and embedding workload
+- Retrieval quality and citation correctness after indexing the full dataset
+
+Run these tests in a staging environment with production-like infrastructure.
+Increase document volume and concurrent requests gradually, record baseline
+metrics, and define acceptable limits for latency, errors, and resource usage
+before release. Do not run load tests against production until rate limits,
+monitoring, and rollback procedures are in place.
 

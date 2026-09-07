@@ -3,7 +3,10 @@
 from __future__ import annotations
 
 import logging
+import os
 from pathlib import Path
+
+from dotenv import load_dotenv
 
 from chunking import chunk_documents
 from generation import generate_answer
@@ -38,10 +41,13 @@ class RAGPipeline:
         header_patterns: tuple[str, ...] = (),
         footer_patterns: tuple[str, ...] = (),
         watermark_patterns: tuple[str, ...] = (),
+        chunk_size: int | None = None,
+        chunk_overlap: int | None = None,
     ) -> int:
         """Load, clean, chunk, and persist supported documents."""
         if reset:
             self.store.clear()
+        load_dotenv()
         documents = load_documents(sources, recursive=recursive)
         cleaned_documents = clean_documents(
             documents,
@@ -49,7 +55,19 @@ class RAGPipeline:
             footer_patterns=footer_patterns,
             watermark_patterns=watermark_patterns,
         )
-        chunks = chunk_documents(cleaned_documents)
+        chunks = chunk_documents(
+            cleaned_documents,
+            chunk_size=(
+                chunk_size
+                if chunk_size is not None
+                else _get_chunk_setting("CHUNK_SIZE", 1200)
+            ),
+            chunk_overlap=(
+                chunk_overlap
+                if chunk_overlap is not None
+                else _get_chunk_setting("CHUNK_OVERLAP", 200)
+            ),
+        )
         self.store.add_documents(chunks)
         logger.info("Indexed %d chunk(s) from %d page(s)", len(chunks), len(documents))
         return len(chunks)
@@ -72,3 +90,13 @@ class RAGPipeline:
             for document in retrieval_result.documents
         ]
         return answer, sources
+
+
+def _get_chunk_setting(name: str, default: int) -> int:
+    value = os.getenv(name)
+    if value is None:
+        return default
+    try:
+        return int(value)
+    except ValueError as error:
+        raise ValueError(f"{name} must be an integer") from error
