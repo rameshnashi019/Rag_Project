@@ -39,67 +39,75 @@ Document loading -> Text cleaning -> Recursive chunking
 ### System architecture
 
 ```mermaid
-flowchart LR
+flowchart TB
 	classDef source fill:#e8f5e9,stroke:#388e3c,color:#1b5e20
 	classDef process fill:#e3f2fd,stroke:#1976d2,color:#0d47a1
-	classDef storage fill:#fff3e0,stroke:#f57c00,color:#e65100
-	classDef output fill:#f3e5f5,stroke:#7b1fa2,color:#4a148c
+	classDef model fill:#fff3e0,stroke:#f57c00,color:#e65100
+	classDef storage fill:#fce4ec,stroke:#c2185b,color:#880e4f
+	classDef api fill:#f3e5f5,stroke:#7b1fa2,color:#4a148c
 
-	subgraph Sources[1. Source Documents]
-		PDF[PDF files]
-		TXT[TXT files]
-		DATA[src/data directory]
-		PDF --> DATA
-		TXT --> DATA
+	CLI[CLI: project index / ask<br/>Python argparse] --> INPUT
+	WEB[Web UI<br/>FastAPI + Uvicorn] --> AUTH
+
+	subgraph S1[1. Data sources]
+		INPUT[PDF and TXT files<br/>src/data or user directory]
 	end
 
-	subgraph Ingestion[2. Ingestion and Processing]
-		LOAD[Document loader]
-		CLEAN[Text cleaning]
-		CHUNK[Recursive chunking]
-		META[Source and page metadata]
-		LOAD --> CLEAN --> CHUNK
-		CHUNK --> META
+	subgraph S2[2. Ingestion and parsing]
+		LOAD[PDF: LangChain PyPDFLoader + pypdf<br/>TXT: pathlib UTF-8 reader<br/>Output: LangChain Document]
 	end
 
-	subgraph Indexing[3. Embedding and Storage]
-		EMBED[Embedding provider]
-		CHROMA[(Persistent Chroma DB)]
-		EMBED --> CHROMA
+	subgraph S3[3. Cleaning and chunking]
+		CLEAN[Text normalization<br/>Unicode, headers, footers, watermarks]
+		CHUNK[RecursiveCharacterTextSplitter<br/>chunk size, overlap, start index]
+		META[Metadata<br/>source, page, chunk index, chunk count]
+		CLEAN --> CHUNK --> META
 	end
 
-	subgraph Query[4. Retrieval]
-		QUESTION[User question]
-		RETRIEVE[Similarity retrieval]
-		CONTEXT[Relevant chunks and metadata]
-		QUESTION --> RETRIEVE --> CONTEXT
+	subgraph S4[4. Embedding and indexing]
+		EMBED[Primary: OpenAIEmbeddings<br/>Model: OPENAI_EMBEDDING_MODEL]
+		FALLBACK[Fallback: HuggingFaceEmbeddings<br/>Model: HF_EMBEDDING_MODEL]
+		DB[(Chroma vector database<br/>langchain-chroma, cosine distance<br/>persistent storage: chroma_db)]
+		EMBED -. failure .-> FALLBACK
+		EMBED --> DB
+		FALLBACK --> DB
 	end
 
-	subgraph Answer[5. Response Generation]
-		OPENAI[OpenAI generator]
-		RESPONSE[Grounded answer with sources]
-		OPENAI --> RESPONSE
+	subgraph S5[5. Query and retrieval]
+		AUTH[JWT authentication<br/>python-jose, /login]
+		QUESTION[Question<br/>CLI or POST /chat]
+		DECOMPOSE[Optional query decomposition<br/>ChatOpenAI, OPENAI_CHAT_MODEL]
+		SEARCH[Chroma similarity search<br/>or MMR re-ranking<br/>k and fetch_k]
+		CONTEXT[Top chunks formatted with<br/>source and page metadata]
+		AUTH --> QUESTION --> DECOMPOSE --> SEARCH --> CONTEXT
+		QUESTION --> SEARCH
 	end
 
-	DATA --> LOAD
+	subgraph S6[6. Grounded answer generation]
+		LLM[ChatOpenAI<br/>Model: OPENAI_CHAT_MODEL<br/>temperature: 0]
+		RESPONSE[Answer with source citations<br/>or explicit no-answer message]
+		LLM --> RESPONSE
+	end
+
+	INPUT --> LOAD --> CLEAN
 	META --> EMBED
-	CHROMA --> RETRIEVE
-	CONTEXT --> OPENAI
-
-	CLI[CLI: project index / ask] --> DATA
-	WEB[FastAPI and web UI] --> QUESTION
+	DB --> SEARCH
+	CONTEXT --> LLM
 	RESPONSE --> WEB
+	RESPONSE --> CLI
 
-	class PDF,TXT,DATA source
-	class LOAD,CLEAN,CHUNK,META,QUESTION,RETRIEVE,CONTEXT process
-	class EMBED,CHROMA storage
-	class OPENAI,RESPONSE,CLI,WEB output
+	class INPUT source
+	class LOAD,CLEAN,CHUNK,META,QUESTION,DECOMPOSE,SEARCH,CONTEXT process
+	class EMBED,FALLBACK,LLM model
+	class DB storage
+	class CLI,WEB,AUTH,RESPONSE api
 ```
 
-The indexing path runs from the source directory through loading, cleaning,
-chunking, embedding, and persistent Chroma storage. The question path retrieves
-relevant chunks and passes them to the answer generator along with source
-metadata so responses can be traced back to the input documents.
+The vertical flow separates the indexing path from the question path. During
+indexing, source files are parsed, cleaned, chunked, enriched with metadata,
+embedded, and persisted in Chroma. During a question, the API authenticates the
+user, optionally decomposes the query, retrieves relevant chunks, and sends
+only that context to `ChatOpenAI` for a grounded response.
 
 ### Project structure
 
@@ -181,6 +189,46 @@ After indexing the documents, you can ask questions such as:
 - What evidence is required before the material change can be released?
 
 The Chroma database is stored in `chroma_db/` and is ignored by Git.
+
+### Retrieval evaluation
+
+Use labeled questions to measure whether retrieval returns the expected source
+documents. The evaluator counts each source file once, even when multiple
+chunks from that file are returned.
+
+```python
+from evalution import RetrievalCase, evaluate_retrieval, summarize_retrieval
+from project import RAGPipeline
+from reterieval import retrieve
+
+pipeline = RAGPipeline(persist_directory="chroma_db_staging")
+cases = [
+	RetrievalCase.from_sources(
+		"What material is currently approved for the P104 pump housing?",
+		["SPEC-P104-REV6.txt"],
+	),
+	RetrievalCase.from_sources(
+		"What happened during the previous CP-420 Polymer Grade B validation?",
+		["TR-1845_CP420_Thermal_Validation.txt", "FA-2218_CP420_Housing_Crack.txt"],
+	),
+]
+
+scores = evaluate_retrieval(
+	cases,
+	lambda query, k: retrieve(
+		query, pipeline.store, k=k, decompose=False, use_mmr=False
+	).documents,
+	k=4,
+)
+summary = summarize_retrieval(scores)
+print(f"precision@4: {summary.mean_precision_at_k:.2%}")
+print(f"recall@4: {summary.mean_recall_at_k:.2%}")
+```
+
+Precision@k is the fraction of the top `k` results that belong to an expected
+source. Recall@k is the fraction of expected sources found in the top `k`.
+Track these values on a fixed evaluation set whenever documents, chunking,
+embeddings, or retrieval settings change.
 
 ### Configuration
 
