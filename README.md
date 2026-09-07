@@ -39,68 +39,44 @@ Document loading -> Text cleaning -> Recursive chunking
 ### System architecture
 
 ```mermaid
-flowchart TB
+flowchart LR
 	classDef source fill:#e8f5e9,stroke:#388e3c,color:#1b5e20
 	classDef process fill:#e3f2fd,stroke:#1976d2,color:#0d47a1
-	classDef model fill:#fff3e0,stroke:#f57c00,color:#e65100
-	classDef storage fill:#fce4ec,stroke:#c2185b,color:#880e4f
+	classDef model fill:#fff3e0,stroke:#f57c00,color:#7a3e00
+	classDef storage fill:#fce4ec,stroke:#c2185b,color:#7a1237
 	classDef api fill:#f3e5f5,stroke:#7b1fa2,color:#4a148c
+	classDef config fill:#f5f5f5,stroke:#616161,color:#212121
 
-	CLI[CLI: project index / ask<br/>Python argparse] --> INPUT
-	WEB[Web UI<br/>FastAPI + Uvicorn] --> AUTH
-
-	subgraph S1[1. Data sources]
-		INPUT[PDF and TXT files<br/>src/data or user directory]
+	subgraph INDEX[1. Index documents]
+		docs[PDF / TXT<br/>src/data or directory] --> load[Load<br/>PyPDFLoader / UTF-8]
+		load --> clean[Clean<br/>Unicode, headers, footers]
+		clean --> chunk[Chunk<br/>size + overlap + start index]
+		chunk --> meta[Metadata<br/>source, page, chunk index]
+		meta --> embed[Embed<br/>OpenAI or Hugging Face fallback]
+		embed --> db[(Chroma<br/>persistent vector store)]
 	end
 
-	subgraph S2[2. Ingestion and parsing]
-		LOAD[PDF: LangChain PyPDFLoader + pypdf<br/>TXT: pathlib UTF-8 reader<br/>Output: LangChain Document]
+	subgraph ASK[2. Answer questions]
+		client[CLI or Web UI] --> auth[JWT login<br/>POST /login]
+		auth --> question[Question<br/>POST /chat]
+		question --> query[Optional decomposition<br/>ChatOpenAI]
+		query --> search[Similarity search<br/>MMR, k, fetch_k]
+		search --> context[Context<br/>source + page metadata]
+		context --> answer[Grounded answer<br/>citations or no information]
 	end
 
-	subgraph S3[3. Cleaning and chunking]
-		CLEAN[Text normalization<br/>Unicode, headers, footers, watermarks]
-		CHUNK[RecursiveCharacterTextSplitter<br/>chunk size, overlap, start index]
-		META[Metadata<br/>source, page, chunk index, chunk count]
-		CLEAN --> CHUNK --> META
-	end
+	config[.env configuration<br/>models, chunking, Chroma, API] -.-> embed
+	config -.-> chunk
+	config -.-> auth
+	config -.-> answer
+	db --> search
 
-	subgraph S4[4. Embedding and indexing]
-		EMBED[Primary: OpenAIEmbeddings<br/>Model: OPENAI_EMBEDDING_MODEL]
-		FALLBACK[Fallback: HuggingFaceEmbeddings<br/>Model: HF_EMBEDDING_MODEL]
-		DB[(Chroma vector database<br/>langchain-chroma, cosine distance<br/>persistent storage: chroma_db)]
-		EMBED -. failure .-> FALLBACK
-		EMBED --> DB
-		FALLBACK --> DB
-	end
-
-	subgraph S5[5. Query and retrieval]
-		AUTH[JWT authentication<br/>python-jose, /login]
-		QUESTION[Question<br/>CLI or POST /chat]
-		DECOMPOSE[Optional query decomposition<br/>ChatOpenAI, OPENAI_CHAT_MODEL]
-		SEARCH[Chroma similarity search<br/>or MMR re-ranking<br/>k and fetch_k]
-		CONTEXT[Top chunks formatted with<br/>source and page metadata]
-		AUTH --> QUESTION --> DECOMPOSE --> SEARCH --> CONTEXT
-		QUESTION --> SEARCH
-	end
-
-	subgraph S6[6. Grounded answer generation]
-		LLM[ChatOpenAI<br/>Model: OPENAI_CHAT_MODEL<br/>temperature: 0]
-		RESPONSE[Answer with source citations<br/>or explicit no-answer message]
-		LLM --> RESPONSE
-	end
-
-	INPUT --> LOAD --> CLEAN
-	META --> EMBED
-	DB --> SEARCH
-	CONTEXT --> LLM
-	RESPONSE --> WEB
-	RESPONSE --> CLI
-
-	class INPUT source
-	class LOAD,CLEAN,CHUNK,META,QUESTION,DECOMPOSE,SEARCH,CONTEXT process
-	class EMBED,FALLBACK,LLM model
-	class DB storage
-	class CLI,WEB,AUTH,RESPONSE api
+	class docs source
+	class load,clean,chunk,meta,question,query,search,context process
+	class embed,answer model
+	class db storage
+	class client,auth api
+	class config config
 ```
 
 The vertical flow separates the indexing path from the question path. During
