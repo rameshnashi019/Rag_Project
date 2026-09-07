@@ -1,4 +1,4 @@
-"""End-to-end PDF retrieval-augmented generation pipeline."""
+"""End-to-end retrieval-augmented generation pipeline."""
 
 from __future__ import annotations
 
@@ -7,7 +7,7 @@ from pathlib import Path
 
 from chunking import chunk_documents
 from generation import generate_answer
-from ingestion import load_pdfs
+from ingestion import load_documents
 from preprocessing import clean_documents
 from reterieval import retrieve
 from vectordb import ChromaStore, create_vector_store
@@ -16,7 +16,7 @@ logger = logging.getLogger(__name__)
 
 
 class RAGPipeline:
-    """Connect PDF loading, cleaning, chunking, storage, retrieval, and generation."""
+    """Connect document loading, cleaning, chunking, storage, retrieval, and generation."""
 
     def __init__(
         self,
@@ -39,10 +39,10 @@ class RAGPipeline:
         footer_patterns: tuple[str, ...] = (),
         watermark_patterns: tuple[str, ...] = (),
     ) -> int:
-        """Load, clean, chunk, and persist PDFs."""
+        """Load, clean, chunk, and persist supported documents."""
         if reset:
             self.store.clear()
-        documents = load_pdfs(sources, recursive=recursive)
+        documents = load_documents(sources, recursive=recursive)
         cleaned_documents = clean_documents(
             documents,
             header_patterns=header_patterns,

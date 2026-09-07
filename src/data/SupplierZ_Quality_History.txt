@@ -1,0 +1,25 @@
+DOCUMENT TYPE: Supplier Quality History Summary (Synthetic)
+DOCUMENT ID: SQH-SUPPLIER-Z-2026
+REPORTING PERIOD: 2022-2026
+SUPPLIER: Supplier-Z
+
+1. 2022 MATERIAL CONDITIONING ISSUE
+Reference: 8D-1208
+Material: Polymer Grade B
+Issue: Lot-to-lot variation associated with conditioning-control limits.
+Status: Corrective action closed October 2022.
+
+2. 2023 FOLLOW-UP
+Three audited production lots met revised conditioning and release controls. No repeat of the specific documentation/control issue was recorded during the audit period.
+
+3. 2024 QUALITY REVIEW
+No major material-composition non-conformance recorded for Polymer Grade B. Minor documentation findings were closed through normal supplier-quality processes.
+
+4. 2025 QUALITY REVIEW
+Supplier remained conditionally approved for relevant engineered polymer materials. Application-specific product validation remained mandatory.
+
+5. 2026 ENGINEERING CHANGE SUPPORT
+Supplier-Z proposed Polymer Grade B for CP-500 P104 under ECR-2026-1048. Engineering requested review of 8D-1208 and historical CP-420 validation before material approval.
+
+6. INTERPRETATION
+Closure of the supplier corrective action demonstrates improved process control; it does not invalidate the historical CP-420 thermal-validation failure and does not constitute CP-500 design approval.

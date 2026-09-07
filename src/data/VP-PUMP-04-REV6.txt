@@ -1,0 +1,36 @@
+DOCUMENT TYPE: Validation Procedure (Synthetic)
+DOCUMENT ID: VP-PUMP-04
+REVISION: Rev 6
+STATUS: Current
+EFFECTIVE: 2025-09-15
+
+1. SCOPE
+Current validation procedure for electric coolant-pump assemblies and polymer housing changes.
+
+2. REQUIRED BASE TESTS
+Pre-test dimensional inspection
+Pressure proof test
+Leak test
+Vibration durability
+Thermal cycling
+Coolant compatibility / aging
+Post-aging dimensional inspection
+Post-aging pressure and leak test
+Visual crack inspection
+
+3. MATERIAL-CHANGE REQUIREMENTS
+Alternative housing materials require extended thermal-cycle evaluation when historical data indicate thermal-aging sensitivity.
+
+4. SUPPLIER REVIEW
+Supplier material-control history and relevant corrective actions shall be reviewed for new material sources.
+
+5. ACCEPTANCE
+No visible cracking or external leakage is permitted. Dimensions affecting sealing and structural integrity shall remain within approved requirements.
+
+6. HISTORICAL QUERY NOTE
+Rev 6 is the current procedure. Historical projects must be evaluated against the revision effective at the time of their original validation.
+
+7. RELATED DOCUMENTS
+SPEC-P104-REV6
+ECR-2026-1048
+DVPR-CP500-P104

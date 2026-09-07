@@ -1,0 +1,35 @@
+DOCUMENT TYPE: Validation Test Report (Synthetic)
+DOCUMENT ID: TR-1845
+REVISION: Rev 3
+TEST DATE: 2022-06-06 to 2022-06-24
+PRODUCT: CP-420 Electric Coolant Pump
+COMPONENT: Polymer Pump Housing
+MATERIAL: Polymer Grade B (PA66-GF35)
+SUPPLIER: Supplier-Z
+
+1. OBJECTIVE
+Evaluate Polymer Grade B for use in a coolant-pump housing under pressure, vibration and thermal exposure.
+
+2. TEST SUMMARY
+Pressure proof test: PASS
+Vibration durability: PASS
+Standard thermal cycling, 300 cycles: PASS
+Extended thermal cycling, target 500 cycles: FAIL
+Post-aging leak test: FAIL on 2 of 8 samples
+
+3. FAILURE OBSERVATION
+Fine surface cracking was first observed on one sample after approximately 420 thermal cycles. At 468 cycles, a second sample developed a crack near the housing-to-cover sealing region. Both affected samples showed leakage during post-aging pressure testing.
+
+4. MATERIAL / DIMENSIONAL OBSERVATIONS
+No abnormal dimensional condition was recorded before environmental exposure. Microscopic review indicated crack initiation near a locally stressed molded region.
+
+5. CONCLUSION
+Polymer Grade B met pressure and vibration requirements but did not demonstrate acceptable margin during extended thermal cycling in the tested CP-420 housing configuration.
+
+6. RECOMMENDATION
+Do not release the material for this housing configuration without further material characterization, molding-process review and repeat thermal validation.
+
+7. RELATED DOCUMENTS
+FA-2218
+8D-1208
+LL-CP420-THERMAL

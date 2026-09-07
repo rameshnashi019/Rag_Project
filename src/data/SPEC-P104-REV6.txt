@@ -1,0 +1,42 @@
+DOCUMENT TYPE: Component Specification (Synthetic)
+DOCUMENT ID: SPEC-P104
+REVISION: Rev 6
+STATUS: Current
+EFFECTIVE DATE: 2025-09-15
+PRODUCT FAMILY: EV Battery Thermal Management
+COMPONENT: P104 Pump Housing
+
+1. PURPOSE
+Current approved engineering requirements for P104 coolant-pump housings.
+
+2. MATERIAL
+Baseline released material: Polymer Grade A, PA66-GF30.
+Alternative materials require engineering change approval and complete material-change validation.
+
+3. KEY REQUIREMENTS
+Nominal wall thickness: 3.0 mm
+Minimum local wall thickness: 2.85 mm
+Operating coolant temperature: -30 C to 105 C
+Short-duration peak coolant temperature: 115 C
+Maximum normal operating pressure: 3.5 bar
+Proof pressure: 7.0 bar
+External leakage: None permitted.
+
+4. DURABILITY REQUIREMENTS
+No visible cracking, permanent sealing-surface distortion or leakage is permitted after required thermal cycling and vibration exposure.
+
+5. MATERIAL CHANGE REQUIREMENT
+A material change requires:
+- material property review,
+- supplier quality review,
+- thermal cycling,
+- coolant compatibility testing,
+- pressure testing before and after aging,
+- dimensional inspection before and after aging.
+
+6. REVISION HISTORY
+Rev 6 increased minimum local wall thickness from 2.75 mm to 2.85 mm and clarified post-aging inspection requirements following historical pump-housing investigations.
+
+7. RELATED DOCUMENTS
+VP-PUMP-04-REV6
+ECR-2026-1048

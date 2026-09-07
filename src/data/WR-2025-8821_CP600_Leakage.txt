@@ -1,0 +1,28 @@
+DOCUMENT TYPE: Warranty / Field Quality Report (Synthetic)
+DOCUMENT ID: WR-2025-8821
+DATE OPENED: 2025-06-21
+PRODUCT: CP-600 Electric Coolant Pump
+ISSUE: Coolant Leakage
+
+1. FIELD SUMMARY
+A small cluster of customer vehicles reported coolant loss associated with the electric coolant pump.
+
+2. RETURNED PART OBSERVATIONS
+Five returned pumps were inspected.
+Three showed visible cracking in the polymer housing near the sealing region.
+Two showed no external housing crack and were routed for separate seal analysis.
+
+3. VEHICLE USAGE
+Reported mileage ranged from approximately 24,000 to 41,000 miles.
+Cases included repeated operation in high ambient-temperature regions.
+
+4. INITIAL ASSESSMENT
+The observed crack location showed similarity to a high-stress housing region. Engineering requested comparison with manufacturing dimensional records and historical thermal-aging investigations.
+
+5. ACTION
+Returned parts sent for detailed failure analysis under FA-2517.
+Manufacturing quality records including NCR-5521 requested.
+
+6. RELATED DOCUMENTS
+FA-2517
+NCR-5521

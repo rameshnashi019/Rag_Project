@@ -1,0 +1,35 @@
+DOCUMENT TYPE: Non-Conformance Report (Synthetic)
+DOCUMENT ID: NCR-5521
+DATE: 2025-04-09
+PRODUCT: CP-600 Electric Coolant Pump
+COMPONENT: Pump Housing
+SUPPLIER: Supplier-Y
+LOT: HY-250401
+
+1. NON-CONFORMANCE
+During dimensional audit, local housing wall thickness measured below drawing requirement.
+
+2. REQUIREMENT
+Minimum local wall thickness: 2.85 mm.
+
+3. OBSERVED RESULTS
+Lowest measured value: 2.71 mm.
+11 of 120 sampled housings were below 2.85 mm.
+
+4. CONTAINMENT
+Affected lot quarantined.
+Additional lots placed on controlled inspection.
+100% targeted thickness inspection initiated for suspect inventory.
+
+5. INITIAL CAUSE
+Molding-process investigation identified process drift associated with a tooling condition and parameter variation.
+
+6. DISPOSITION
+Non-conforming parts rejected. Tooling maintenance and process reset required before normal production release.
+
+7. RELEVANCE
+The non-conformance later became part of the CP-600 coolant-leakage investigation because field-return cracks were found in a similar housing region.
+
+8. RELATED DOCUMENTS
+WR-2025-8821
+FA-2517

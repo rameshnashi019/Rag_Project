@@ -1,0 +1,40 @@
+DOCUMENT TYPE: Field Failure Analysis Report (Synthetic)
+DOCUMENT ID: FA-2517
+DATE: 2025-08-08
+PRODUCT: CP-600 Electric Coolant Pump
+COMPONENT: Pump Housing
+RELATED WARRANTY CASE: WR-2025-8821
+
+1. OBJECTIVE
+Determine the cause of cracking observed in returned CP-600 pump housings.
+
+2. EVIDENCE REVIEWED
+Returned field parts
+Dimensional measurements
+Manufacturing lot records
+NCR-5521
+Material inspection data
+Historical thermal-housing lessons learned
+
+3. FINDINGS
+Three returned parts contained cracks near a molded transition adjacent to the sealing region.
+Two of the three cracked housings had local wall thickness near the lower end of specification.
+One returned housing was associated with a production period included in the broader investigation around NCR-5521.
+Material identity was confirmed as the released CP-600 material and was not Polymer Grade B.
+
+4. ROOT-CAUSE ASSESSMENT
+The investigation concluded that local geometric stress combined with reduced wall-thickness margin and repeated thermal loading contributed to crack initiation. Evidence did not support Supplier-Z or Polymer Grade B as the cause of the CP-600 failures.
+
+5. CORRECTIVE ACTION
+Molding-process controls strengthened.
+Minimum wall-thickness monitoring increased.
+Tooling condition checks added.
+Design team initiated geometry robustness review.
+
+6. IMPORTANT HISTORICAL CONNECTION
+CP-420 and CP-600 both demonstrated that thermal exposure can amplify weaknesses at locally stressed housing regions, although the materials and direct root causes were different.
+
+7. RELATED DOCUMENTS
+WR-2025-8821
+NCR-5521
+LL-CP420-THERMAL

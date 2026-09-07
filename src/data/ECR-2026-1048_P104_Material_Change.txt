@@ -1,0 +1,47 @@
+DOCUMENT TYPE: Engineering Change Request (Synthetic)
+DOCUMENT ID: ECR-2026-1048
+DATE: 2026-03-12
+STATUS: Under Engineering Review
+PRODUCT FAMILY: EV Battery Thermal Management
+PRODUCT: CP-500 Electric Coolant Pump
+COMPONENT: P104 Pump Housing
+CURRENT MATERIAL: Polymer Grade A (PA66-GF30)
+PROPOSED MATERIAL: Polymer Grade B (PA66-GF35)
+PROPOSED SUPPLIER: Supplier-Z
+
+1. CHANGE REQUEST
+Replace Polymer Grade A with Polymer Grade B for the P104 pump housing used in the CP-500 electric coolant pump.
+
+2. BUSINESS / ENGINEERING REASON
+The proposed material provides improved nominal stiffness and supports a supplier consolidation initiative. Supplier-Z has also proposed improved regional availability and shorter lead time.
+
+3. AFFECTED FUNCTIONS
+The housing contains pressurized coolant, supports the motor/pump assembly, maintains sealing interfaces, and must remain dimensionally stable across the specified operating temperature range.
+
+4. INITIAL ENGINEERING CONCERNS
+Engineering review identified the following areas requiring assessment:
+- long-duration thermal cycling,
+- coolant compatibility,
+- dimensional stability,
+- housing crack resistance,
+- supplier material consistency,
+- sealing performance after aging.
+
+5. HISTORICAL REVIEW REQUIRED
+Before approval, engineering requested a search for previous applications of Polymer Grade B, historical housing cracking, supplier-quality issues involving Supplier-Z, and previous validation results.
+
+6. REQUIRED VALIDATION
+Validation shall follow the currently approved coolant-pump validation procedure. The validation team shall prepare DVPR-CP500-P104 and include pressure, vibration, thermal cycling, coolant compatibility, dimensional stability and post-aging leak testing.
+
+7. RELATED DOCUMENTS
+SPEC-P104-REV6
+DVPR-CP500-P104
+VP-PUMP-04-REV6
+MAT-B-TECH-SPEC
+TR-1845
+FA-2218
+8D-1208
+LL-CP420-THERMAL
+
+8. DECISION
+Final approval pending completion of historical risk review and validation.

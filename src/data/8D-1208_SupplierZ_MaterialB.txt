@@ -1,0 +1,36 @@
+DOCUMENT TYPE: Supplier 8D Corrective Action Report (Synthetic)
+DOCUMENT ID: 8D-1208
+DATE OPENED: 2022-07-22
+DATE CLOSED: 2022-10-14
+SUPPLIER: Supplier-Z
+MATERIAL: Polymer Grade B (PA66-GF35)
+RELATED PRODUCT: CP-420
+
+D1 - TEAM
+Supplier quality, materials engineering, manufacturing engineering and Supplier-Z technical representatives.
+
+D2 - PROBLEM
+Material characterization following CP-420 thermal-validation failures identified higher-than-expected lot-to-lot variation in moisture conditioning and selected mechanical-property measurements.
+
+D3 - CONTAINMENT
+Affected retained lots were placed on hold. Additional certificate review and incoming material verification were introduced for new deliveries.
+
+D4 - ROOT CAUSE
+Supplier investigation found that conditioning-control limits were too broad and production records did not consistently distinguish all conditioning histories before shipment.
+
+D5 - PERMANENT CORRECTIVE ACTION
+Supplier-Z tightened conditioning limits, added automated recording of conditioning parameters, revised release criteria and introduced additional lot verification.
+
+D6 - VERIFICATION
+Three subsequent production lots met the revised supplier control limits. These results verified process consistency but did not independently approve the material for CP-420 or CP-500 housing applications.
+
+D7 - PREVENTION
+Supplier control plan and material release checklist updated.
+
+D8 - CLOSURE
+Supplier corrective action closed. Any new automotive housing application still requires application-specific engineering validation.
+
+RELATED DOCUMENTS:
+TR-1845
+FA-2218
+ECR-2026-1048

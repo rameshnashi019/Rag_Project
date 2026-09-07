@@ -1,0 +1,25 @@
+DOCUMENT TYPE: Validation Procedure (Synthetic)
+DOCUMENT ID: VP-PUMP-04
+REVISION: Rev 4
+STATUS: Superseded
+EFFECTIVE: 2021-01-15
+
+1. SCOPE
+Validation requirements for electric coolant pumps and polymer housings.
+
+2. CORE TESTS
+Dimensional inspection
+Pressure proof testing
+Leak testing
+Vibration durability
+Thermal cycling: standard program up to 300 cycles
+Post-test visual inspection
+
+3. MATERIAL CHANGES
+Engineering shall review material specifications and repeat affected validation tests.
+
+4. LIMITATION
+Rev 4 did not explicitly require extended thermal cycling for every alternative polymer material and did not mandate post-aging dimensional comparison.
+
+5. REVISION STATUS
+Superseded by later revisions following validation and field lessons learned.

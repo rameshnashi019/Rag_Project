@@ -10,14 +10,14 @@ from .pipeline import RAGPipeline
 
 
 def main() -> None:
-	"""Run the PDF indexing or question-answering command."""
-	parser = argparse.ArgumentParser(description="Index PDFs and ask questions")
+	"""Run the document indexing or question-answering command."""
+	parser = argparse.ArgumentParser(description="Index documents and ask questions")
 	parser.add_argument("command", choices=("index", "ask"))
-	parser.add_argument("value", help="PDF path/directory for index, or question for ask")
+	parser.add_argument("value", help="Document path/directory for index, or question for ask")
 	parser.add_argument("--db", default="chroma_db", help="Chroma persistence directory")
 	parser.add_argument("--collection", default="pdf_documents")
-	parser.add_argument("--recursive", action="store_true", help="Search nested PDF directories")
-	parser.add_argument("--reset", action="store_true", help="Clear the collection before indexing")
+	parser.add_argument("--recursive", action="store_true", help="Include nested documents when indexing")
+	parser.add_argument("--reset", action="store_true", help="Rebuild the index; use when source documents or processing change")
 	parser.add_argument("-k", type=int, default=4, help="Number of chunks to retrieve")
 	args = parser.parse_args()
 

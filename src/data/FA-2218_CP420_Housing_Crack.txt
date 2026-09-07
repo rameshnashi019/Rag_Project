@@ -1,0 +1,35 @@
+DOCUMENT TYPE: Failure Analysis Report (Synthetic)
+DOCUMENT ID: FA-2218
+DATE: 2022-07-18
+PRODUCT: CP-420 Electric Coolant Pump
+COMPONENT: Pump Housing
+MATERIAL: Polymer Grade B
+SUPPLIER: Supplier-Z
+RELATED TEST: TR-1845
+
+1. PROBLEM
+Two validation samples developed housing cracks during extended thermal-cycle testing. Leakage was observed during subsequent pressure testing.
+
+2. INVESTIGATION
+Visual inspection located cracks near a molded transition adjacent to the sealing region. Sectioning and microscopy showed crack initiation from the inner surface. Dimensional measurements before testing were within drawing requirements.
+
+3. CONTRIBUTING FACTORS
+The investigation identified a combination of:
+- repeated thermal expansion/contraction,
+- local geometric stress concentration,
+- reduced material margin after prolonged coolant/temperature exposure,
+- lot-to-lot material-property variation requiring supplier investigation.
+
+4. ROOT-CAUSE ASSESSMENT
+The failure was assessed as a thermal-aging-related durability weakness in the tested material/design/process combination. The analysis did not conclude that Polymer Grade B would fail in every housing design.
+
+5. ACTIONS
+Supplier-Z material consistency investigation initiated.
+Additional incoming material controls requested.
+Housing geometry reviewed for local stress reduction.
+Extended thermal-cycle testing added to future material-change reviews.
+
+6. RELATED DOCUMENTS
+TR-1845
+8D-1208
+LL-CP420-THERMAL

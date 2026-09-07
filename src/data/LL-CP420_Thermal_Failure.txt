@@ -1,0 +1,25 @@
+DOCUMENT TYPE: Engineering Lessons Learned (Synthetic)
+DOCUMENT ID: LL-CP420-THERMAL
+DATE: 2022-11-02
+PRODUCT: CP-420 Electric Coolant Pump
+
+1. EVENT
+Polymer Grade B was evaluated as an alternative pump-housing material. Initial pressure and vibration testing passed, but cracking occurred during extended thermal cycling.
+
+2. KEY LESSONS
+Passing short-duration or individual mechanical tests does not demonstrate long-term thermal durability.
+Material changes must be evaluated as a material + geometry + process + operating-environment combination.
+Supplier material consistency should be reviewed before release.
+Post-aging leak and dimensional testing should follow thermal exposure.
+Historical validation failures must be reviewed when the same material is proposed for another pump family.
+
+3. STANDARDIZATION ACTIONS
+Extended thermal-cycle review added to material-change checklist.
+Supplier quality history added to engineering change review.
+Post-aging inspection requirements strengthened.
+
+4. RELATED DOCUMENTS
+TR-1845
+FA-2218
+8D-1208
+SPEC-P104-REV6

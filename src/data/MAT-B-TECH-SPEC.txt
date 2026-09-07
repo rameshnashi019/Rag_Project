@@ -1,0 +1,27 @@
+DOCUMENT TYPE: Material Technical Specification (Synthetic)
+DOCUMENT ID: MAT-B-TECH-SPEC
+REVISION: Rev 4
+MATERIAL: Polymer Grade B
+GENERIC DESCRIPTION: PA66 with 35% glass-fiber reinforcement
+APPROVED SUPPLIER: Supplier-Z
+
+1. INTENDED APPLICATION
+Engineering polymer intended for structural under-hood components subject to thermal and mechanical loading.
+
+2. NOMINAL CHARACTERISTICS
+Higher nominal stiffness than the current PA66-GF30 baseline.
+Suitable for molded structural components when application-specific environmental and durability requirements are validated.
+
+3. PROCESS SENSITIVITY
+Material properties can be affected by moisture conditioning, molding parameters and fiber orientation. Supplier processing and conditioning controls are therefore important.
+
+4. APPLICATION LIMITATION
+This specification does not by itself approve the material for any specific coolant-pump housing. Product-specific engineering validation is required.
+
+5. QUALITY REQUIREMENTS
+Each production lot requires certificate review and compliance with Supplier-Z's revised conditioning-control process introduced after 8D-1208.
+
+6. RELATED DOCUMENTS
+8D-1208
+ECR-2026-1048
+TR-1845
